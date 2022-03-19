@@ -1,0 +1,10 @@
+.app_header {
+  background-color: white;
+  padding: 20px;
+  object-fit: container;
+  border-bottom: 1px solid lightgray;
+}
+.app_signup{
+  display: flex;
+  flex-direction: column;
+}
