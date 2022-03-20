@@ -1,6 +1,15 @@
 
 .post{
     max-width: 500px;
+    margin-top: 9px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    width: 99%;
+    background-color: #ffffff10;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 spx 15px rgba(121, 86, 86, 0.7);
 }
 .post_image{
     width: 100%;
@@ -10,12 +19,27 @@
 .post_text {
     font-weight: normal;
     padding: 20px;
+    color: white;
 }
 .post_header {
+    margin-top: 2px;
     display: flex;
     align-items: center;
     padding: 20px 10px 0 0;
+    color: white;
+    
 }
 .post_avatar {
     margin-right: 10px;
+}
+.post_test {
+    float: left;
+    width: 70%;
+    color: white;
+}
+.time  {
+    float: right;
+    width: 30%;
+    font-size: small;
+    color: white;
 }

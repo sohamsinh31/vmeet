@@ -44,6 +44,7 @@ const [password, setPassword] = useState('');
 const [email,setEmail] = useState('');
 const [user, setUser] = useState(null);
 const [opensignin, setopensignin] = useState(false);
+const [useremail, setuseremail] = useState(null);
 const [displayusername, setdisplayusername] = useState(null);
 //const user2 = auth.currentUser.displayName;
 useEffect(()=>{
@@ -52,10 +53,9 @@ useEffect(()=>{
     
     if(authUser){
       //user has logged in
-      console.log(authUser);
       setUser(authUser);
       setdisplayusername(authUser.displayName);
-       return authUser.displayName;
+      setuseremail(authUser.email);
     }
     else {
       setUser(null);
@@ -102,15 +102,7 @@ const signIn = (event) =>{
     <div className="app">
     <div className="app_header">
       <h4>VMEET</h4>
-    </div>
-    {displayusername?(
-    <Imageuplpad username={displayusername} />
-    ):(
-      <h3>sorry you need to login</h3>
-    )
-}
-            <div>
-          {user?(
+      {user?(
             <Button onClick={()=>signOut(auth)}>Signout</Button>
           
           ):
@@ -121,6 +113,14 @@ const signIn = (event) =>{
             </div>
           )
 }
+    </div>
+    {displayusername?(
+    <Imageuplpad email={useremail} username={displayusername} />
+    ):(
+      <h3>sorry you need to login</h3>
+    )
+}
+            <div>
           <Modal
             open={open}
             onClose={handleClose}
@@ -185,11 +185,11 @@ onChange={(e)=>setPassword(e.target.value)}
         </div>
     {
       posts.map(({post,id}) =>(
-        <Post key={id} username={post.username} caption = {post.caption} imageurl={post.imageurl}/>
+        <Post key={id} postId={id} email={useremail} username={post.username} caption = {post.caption} timestamp={post.timestamp} imageurl={post.imageurl}/>
       ))
     }
+{/* <Post  username="son41" caption="hi there" imageurl={vplex} /> */}
 
-    {/* <Post  username="son41" caption="hi there" imageurl={vplex} /> */}
     </div>
 )
 }

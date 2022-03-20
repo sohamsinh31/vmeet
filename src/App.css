@@ -1,10 +1,16 @@
 .app_header {
-  background-color: white;
+  background-color: #0e0e0e;
   padding: 20px;
   object-fit: container;
   border-bottom: 1px solid lightgray;
+  color: white;
+  display: flex;
+  justify-content: space-between;
 }
 .app_signup{
   display: flex;
   flex-direction: column;
+}
+body{
+  background-color: #0e0e0e;
 }
