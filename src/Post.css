@@ -11,6 +11,24 @@
     -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 spx 15px rgba(121, 86, 86, 0.7);
 }
+.post_comment{
+    display:flex;
+    margin-top: 10px;
+}
+.post_input{
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
+.post_button{
+    flex: 0;
+    color: white;
+    background-color: transparent;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+}
 .post_image{
     width: 100%;
     object-fit: contain;

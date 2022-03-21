@@ -11,6 +11,13 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { Input } from '@mui/material';
 import Imageuplpad from './Imageuplpad';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Routes
+} from 'react-router-dom';
 const App = () => {
   const [posts,setPosts] = useState([]);
 useEffect(()=>{
@@ -192,5 +199,8 @@ onChange={(e)=>setPassword(e.target.value)}
 
     </div>
 )
+}
+function About(){
+  return <h1>hi</h1>
 }
 export default App;

@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import {db ,rdb,storage} from './firebase';
 import './Imagetoupload.css'
 import { ref,getDownloadURL, uploadBytesResumable } from 'firebase/storage';
-import {addDoc,collection,Timestamp, doc, setDoc, FieldValue } from "firebase/firestore"; 
+import {addDoc,collection,increment,Timestamp, doc, setDoc, FieldValue } from "firebase/firestore"; 
 
 const Imageuplpad = ({username,email}) => {
 const [caption, setcaption] = useState('');
@@ -46,7 +46,8 @@ uploadtask.on(
             caption:caption,
             imageurl:url,
             username:username,
-            email:email
+            email:email,
+            postid:increment(50)
           });
           setprogress(0);
           setcaption("");
