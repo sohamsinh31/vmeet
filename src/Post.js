@@ -1,8 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import vplex from './images/vplex.png'
 import './Post.css'
-import firebase from 'firebase/compat/app'
-import 'firebase/firestore';
 import { Avatar } from '@mui/material';
 import {Route,Link,BrowserRouter} from 'react-router-dom'
 import {db ,rdb,storage} from './firebase';
