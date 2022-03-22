@@ -1,6 +1,6 @@
-import React,{useEffect, useState} from 'react'
-import vplex from './images/vplex.png'
-import './Post.css'
+import React,{useEffect, useState} from 'react';
+import vplex from './images/vplex.png';
+import './Post.css';
 import { Avatar } from '@mui/material';
 import {Route,Link,BrowserRouter} from 'react-router-dom'
 import {db ,rdb,storage} from './firebase';
@@ -13,7 +13,7 @@ function Post({username,postId, caption, imageurl,timestamp}) {
     let unsuscribe;
      // let colref= collection(db, "photos", "comments"),postId)
    const q= query(collection(db, "photos",`${postId}` ,"comments"))
-   const q2 = getDocs(q).then((snapshot)=>{
+   getDocs(q).then((snapshot)=>{
         setcomments((snapshot.docs.map(doc=>({
           post:doc.data()
         }))))
