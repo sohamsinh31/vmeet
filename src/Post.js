@@ -2,11 +2,13 @@ import React,{useEffect, useState} from 'react';
 import vplex from './images/vplex.png';
 import './Post.css';
 import { Avatar } from '@mui/material';
-import {Route,Link,BrowserRouter} from 'react-router-dom'
 import {db ,rdb,storage} from './firebase';
-import { serverTimestamp, query, addDoc ,collection, doc, getDocs,child, setDoc ,forEach} from "firebase/firestore"; 
+import Userpro from './Userpro';
+import App from './App';
+import {  query, addDoc ,collection, doc, getDocs,child, setDoc ,forEach} from "firebase/firestore"; 
 
-function Post({username,postId, caption, imageurl,timestamp}) {
+
+function Post({username,displayname,postId,userurl2, caption,email, imageurl,timestamp}) {
   const [comment, setcomment] = useState('');
   const [comments, setcomments] = useState([]);
   useEffect(()=>{
@@ -20,7 +22,7 @@ function Post({username,postId, caption, imageurl,timestamp}) {
       })
   return unsuscribe;
   
-},[]);
+},[comments]);
 const postcomment =(event)=>{
   event.preventDefault();
   const currentDate = new Date();
@@ -33,18 +35,18 @@ const postcomment =(event)=>{
 
   addDoc(collection(db, "photos",`${postId}` ,"comments"),{
     text:comment,
-    username:username,
+    username:displayname,
     timestamp: timestamp
   })
   setcomment('');
 }
   return (
     <div className ="post">
-      <div className = "post_header">
+      <div className = "post_header" >
           <Avatar
             className="post_avatar"
             alt = 'RafehQazi'
-            src = {vplex}
+            src = {userurl2}
             />
             <h3>{username}</h3>
       </div>

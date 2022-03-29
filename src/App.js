@@ -4,21 +4,22 @@ import Post from './Post';
 import { useEffect } from 'react';
 import 'firebase/firestore';
 import { Avatar } from '@mui/material';
-import { getAuth,signOut, onAuthStateChanged , createUserWithEmailAndPassword,updateProfile,sendEmailVerification , signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth,signOut, onAuthStateChanged , createUserWithEmailAndPassword,updateProfile, signInWithEmailAndPassword,deleteUser  } from "firebase/auth";
 import {db ,rdb,storage} from './firebase';
-import { ref,getDownloadURL, uploadBytesResumable } from 'firebase/storage';
-import { collection, doc, getDocs} from "firebase/firestore"; 
+import { ref,getDownloadURL, uploadBytesResumable,deleteObject } from 'firebase/storage';
+import { collection, doc, query,getDocs,orderBy} from "firebase/firestore"; 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { Input } from '@mui/material';
 import Imageuplpad from './Imageuplpad';
+import Stories from './Stories'
 //------------START--------------//
 const App = () => {
   //------LOAD POSTS DATABASE-------------------//
   const [posts,setPosts] = useState([]);
 useEffect(()=>{
-const colref = collection(db,'photos');
+const colref = query(collection(db,'photos'),orderBy("timestamp"));
 getDocs(colref).then(snapshot=>{
   setPosts(snapshot.docs.map(doc =>(
     {
@@ -27,7 +28,7 @@ getDocs(colref).then(snapshot=>{
     }
   )))
 })
-},[]);
+},[posts]);
 //------------BOX-STYLES-------------------//
 const style = {
   position: 'absolute',
@@ -120,7 +121,9 @@ seturl(url);
       alert(error.message)
       // ..
     });
+    handleClose(true)
 }
+
 const signIn = (event) =>{
   event.preventDefault();
   signInWithEmailAndPassword(auth, email, password).then(setopensignin(false))
@@ -135,13 +138,13 @@ const signIn = (event) =>{
   return (
     <div className="app">
     <div className="app_header">
-      <h4>VMEET</h4>
+      <h4 style={{fontFamily:'Bradley Hand,cursive',fontSize:'30px'}}>vmeet</h4>
       {user?(
                   <Avatar
                   className="post_avatar"
                   alt = 'RafehQazi'
                   src = {userurl}
-                  onClick={()=>signOut(auth)}
+                  onClick={()=>deleteUser(auth.currentUser).then(signOut(auth))}
                   />
             // <Button onClick={()=>signOut(auth)}>Signout</Button>
           
@@ -155,7 +158,13 @@ const signIn = (event) =>{
 }
     </div>
     {displayusername?(
-    <Imageuplpad email={useremail} username={displayusername} />
+<Stories email={useremail} userurl={userurl} username={displayusername} />
+    ):(
+<h3>Sorry you need to login</h3>
+    )
+}
+    {displayusername?(
+    <Imageuplpad email={useremail} userurl={userurl} username={displayusername} />
     ):(
       <h3>sorry you need to login</h3>
     )
@@ -228,7 +237,7 @@ onChange={(e)=>setPassword(e.target.value)}
         </div>
     {
       posts.map(({post,id}) =>(
-        <Post key={id} postId={id} postId2={post.postid2} email={useremail} username={post.username} caption = {post.caption} timestamp={post.timestamp} imageurl={post.imageurl}/>
+        <Post key={id} postId={id} userurl2={post.userurl} email={useremail} displayname={displayusername} username={post.username} caption = {post.caption} timestamp={post.timestamp} imageurl={post.imageurl}/>
       ))
     }
 {/* <Post  username="son41" caption="hi there" imageurl={vplex} /> */}
